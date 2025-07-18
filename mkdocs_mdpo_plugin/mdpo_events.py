@@ -67,7 +67,7 @@ def build_md2po_events(markdown_extensions):
                     're.match(SnippetPreprocessor.RE_ALL_SNIPPETS, text)'
                 ),
                 'pymdownx.blocks.tab': 're.match(TabbedProcessor.START, text)',
-                'mkdocstrings': 're.match(MkDocsStringsProcessor.regex, text)',
+                # 'mkdocstrings': 're.match(MkDocsStringsProcessor.regex, text)',
             }
 
             body = ''
@@ -80,7 +80,7 @@ def build_md2po_events(markdown_extensions):
                     )
             if not body:
                 return None
-        if event_type == 'msgid':
+        elif event_type == 'msgid':
             body = (
                 "    if msgid.startswith(': '):"
                 'md2po_instance.disable_next_block = True\n'
