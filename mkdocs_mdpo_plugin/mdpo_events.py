@@ -4,7 +4,7 @@ import re  # noqa: F401
 
 
 try:
-    from markdown.extensions.admonition import (  # noqa: F401
+    from pymdownx.blocks.admonition import (  # noqa: F401
         AdmonitionProcessor,
     )
 except ImportError:  # pragma: no cover
@@ -18,7 +18,7 @@ try:
 except ImportError:  # pragma: no cover
     pass
 try:
-    from pymdownx.tabbed import TabbedProcessor  # noqa: F401
+    from pymdownx.blocks.tab import TabbedProcessor  # noqa: F401
 except ImportError:  # pragma: no cover
     pass
 try:
