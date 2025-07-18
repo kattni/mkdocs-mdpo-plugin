@@ -61,12 +61,12 @@ def build_md2po_events(markdown_extensions):
 
         if event_type == 'text':
             req_extension_conditions = {
-                'admonition': 're.match(AdmonitionProcessor.RE, text)',
+                'pymdownx.blocks.admonition': 're.match(AdmonitionProcessor.RE, text)',
                 'pymdownx.details': 're.match(DetailsProcessor.START, text)',
                 'pymdownx.snippets': (
                     're.match(SnippetPreprocessor.RE_ALL_SNIPPETS, text)'
                 ),
-                'pymdownx.tabbed': 're.match(TabbedProcessor.START, text)',
+                'pymdownx.blocks.tab': 're.match(TabbedProcessor.START, text)',
                 'mkdocstrings': 're.match(MkDocsStringsProcessor.regex, text)',
             }
 
