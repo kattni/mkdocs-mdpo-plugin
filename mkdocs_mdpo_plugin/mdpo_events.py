@@ -80,7 +80,7 @@ def build_md2po_events(markdown_extensions):
                     )
             if not body:
                 return None
-        elif event_type == 'msgid':
+        if event_type == 'msgid':
             body = (
                 "    if msgid.startswith(': '):"
                 'md2po_instance.disable_next_block = True\n'
