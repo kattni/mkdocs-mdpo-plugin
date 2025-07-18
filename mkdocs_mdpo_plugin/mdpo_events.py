@@ -22,7 +22,7 @@ try:
 except ImportError:  # pragma: no cover
     pass
 try:
-    from mkdocstrings.extension import (  # noqa: F401
+    from mkdocstrings import (  # noqa: F401
         AutoDocProcessor as MkDocsStringsProcessor,
         MkdocstringsExtension,
     )
