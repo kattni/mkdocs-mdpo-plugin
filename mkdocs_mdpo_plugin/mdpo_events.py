@@ -67,7 +67,7 @@ def build_md2po_events(markdown_extensions):
                     're.match(SnippetPreprocessor.RE_ALL_SNIPPETS, text)'
                 ),
                 # 'pymdownx.blocks.tab': 're.match(TabbedTreeProcessor.START, text)',
-                # 'mkdocstrings': 're.match(MkDocsStringsProcessor.regex, text)',
+                'mkdocstrings': 're.match(MkDocsStringsProcessor.regex, text)',
             }
 
             body = ''
