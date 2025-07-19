@@ -53,60 +53,60 @@ def build_md2po_events(markdown_extensions):
         md_extensions.append(ext)
 
     def build_event(event_type):
-        parameters = {
-            'text': 'md2po_instance, block, text',
-            'msgid': 'md2po_instance, msgid, *args',
-            'link_reference': 'md2po_instance, target, *args',
-        }[event_type]
-
-        if event_type == 'text':
-            req_extension_conditions = {
-                # 'pymdownx.blocks.admonition': 're.match(AdmonitionProcessor.RE, text)',
-                'pymdownx.details': 're.match(DetailsProcessor.START, text)',
-                'pymdownx.snippets': (
-                    're.match(SnippetPreprocessor.RE_ALL_SNIPPETS, text)'
-                ),
-                # 'pymdownx.blocks.tab': 're.match(TabbedTreeProcessor.START, text)',
-                # 'mkdocstrings': 're.match(MkDocsStringsProcessor.regex, text)',
-            }
-
-            body = ''
-            for req_extension, condition in req_extension_conditions.items():
-                if req_extension in md_extensions:
-                    body += (
-                        f'    if {condition}:\n        '
-                        'md2po_instance.disabled_entries.append(text)\n'
-                        '        return False\n'
-                    )
-            if not body:
-                return None
-        elif event_type == 'msgid':
-            body = (
-                "    if msgid.startswith(': '):"
-                'md2po_instance.disable_next_block = True\n'
-            )
-        else:  # link_reference
-            body = "    if target.startswith('^'):return False;\n"
-
-        function_definition = f'def {event_type}_event({parameters}):\n{body}'
-        code = compile(function_definition, 'test', 'exec')
-        my_locals = locals()
-        exec(code, None, my_locals)
-        return my_locals[f'{event_type}_event']
-
-    # load only those events required for the extensions
-    events_functions = {
-        event:
-        build_event(event) for event in ['text', 'msgid', 'link_reference']
-    }
-
-    events = {}
-    for event_name, event_function in events_functions.items():
-        if event_function is not None:
-            events[event_name] = event_function
-
-    return events
-
+#         parameters = {
+#             'text': 'md2po_instance, block, text',
+#             'msgid': 'md2po_instance, msgid, *args',
+#             'link_reference': 'md2po_instance, target, *args',
+#         }[event_type]
+#
+#         if event_type == 'text':
+#             req_extension_conditions = {
+#                 # 'pymdownx.blocks.admonition': 're.match(AdmonitionProcessor.RE, text)',
+#                 'pymdownx.details': 're.match(DetailsProcessor.START, text)',
+#                 'pymdownx.snippets': (
+#                     're.match(SnippetPreprocessor.RE_ALL_SNIPPETS, text)'
+#                 ),
+#                 # 'pymdownx.blocks.tab': 're.match(TabbedTreeProcessor.START, text)',
+#                 # 'mkdocstrings': 're.match(MkDocsStringsProcessor.regex, text)',
+#             }
+#
+#             body = ''
+#             for req_extension, condition in req_extension_conditions.items():
+#                 if req_extension in md_extensions:
+#                     body += (
+#                         f'    if {condition}:\n        '
+#                         'md2po_instance.disabled_entries.append(text)\n'
+#                         '        return False\n'
+#                     )
+#             if not body:
+#                 return None
+#         elif event_type == 'msgid':
+#             body = (
+#                 "    if msgid.startswith(': '):"
+#                 'md2po_instance.disable_next_block = True\n'
+#             )
+#         else:  # link_reference
+#             body = "    if target.startswith('^'):return False;\n"
+#
+#         function_definition = f'def {event_type}_event({parameters}):\n{body}'
+#         code = compile(function_definition, 'test', 'exec')
+#         my_locals = locals()
+#         exec(code, None, my_locals)
+#         return my_locals[f'{event_type}_event']
+#
+#     # load only those events required for the extensions
+#     events_functions = {
+#         event:
+#         build_event(event) for event in ['text', 'msgid', 'link_reference']
+#     }
+#
+#     events = {}
+#     for event_name, event_function in events_functions.items():
+#         if event_function is not None:
+#             events[event_name] = event_function
+#
+#     return events
+        return
 
 def build_po2md_events(markdown_extensions):
     def link_reference_event(po2md_instance, target, href, title):

@@ -274,12 +274,12 @@ class MdpoPlugin(mkdocs.plugins.BasePlugin):
                 # create pofile of the page for each language
                 po_filepath = os.path.join(
                     lang_docs_dir,
-                    f'{page.file.src_path}.po',
+                    f'{page.file.src_path.split(".")[0]}.po',
                 )
-                os.makedirs(
-                    os.path.abspath(os.path.dirname(po_filepath)),
-                    exist_ok=True,
-                )
+                # os.makedirs(
+                #     os.path.abspath(os.path.dirname(po_filepath)),
+                #     exist_ok=True,
+                # )
                 if not os.path.isfile(po_filepath):
                     po = polib.POFile()
                 else:
