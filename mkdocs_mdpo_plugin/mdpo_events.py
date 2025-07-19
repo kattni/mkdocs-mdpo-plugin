@@ -61,12 +61,12 @@ def build_md2po_events(markdown_extensions):
 
         if event_type == 'text':
             req_extension_conditions = {
-                'pymdownx.blocks.admonition': 're.match(AdmonitionProcessor.RE, text)',
+                # 'pymdownx.blocks.admonition': 're.match(AdmonitionProcessor.RE, text)',
                 'pymdownx.details': 're.match(DetailsProcessor.START, text)',
                 'pymdownx.snippets': (
                     're.match(SnippetPreprocessor.RE_ALL_SNIPPETS, text)'
                 ),
-                'pymdownx.blocks.tab': 're.match(TabbedProcessor.START, text)',
+                # 'pymdownx.blocks.tab': 're.match(TabbedTreeProcessor.START, text)',
                 # 'mkdocstrings': 're.match(MkDocsStringsProcessor.regex, text)',
             }
 
@@ -90,8 +90,9 @@ def build_md2po_events(markdown_extensions):
 
         function_definition = f'def {event_type}_event({parameters}):\n{body}'
         code = compile(function_definition, 'test', 'exec')
-        exec(code)
-        return locals()[f'{event_type}_event']
+        my_locals = locals()
+        exec(code, None, my_locals)
+        return my_locals[f'{event_type}_event']
 
     # load only those events required for the extensions
     events_functions = {
